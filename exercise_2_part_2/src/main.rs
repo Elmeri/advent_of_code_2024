@@ -27,6 +27,7 @@ fn main() -> io::Result<()>  {
     let mut report_vector: Vec<Vec<i32>> = Vec::new();
     let mut total_safe_reports: i32 = 0;
     let acceptable_increments: Vec<i32> = vec![1, 2, 3];
+    let mut correct_lines: Vec<usize> = Vec::new();
 
     for line in reader.lines() {
         // Each line is a Result<String>, so we handle errors if needed
@@ -58,7 +59,8 @@ fn main() -> io::Result<()>  {
         }
         println!("level_vector: {:?}, invalid_increase_index: {:?} , invalid_increases: {:?} ", report_vector[i] , invalid_increase_index, invalid_increases);
         if valid_increases == report_vector[i].len() -1 {
-            total_safe_reports += 1
+            total_safe_reports += 1;
+            correct_lines.push(i);
         } else {
             println!("report_vector[i]: {:?}", report_vector[i]);
             for k in 0..=report_vector[i].len() - 1 {
@@ -68,6 +70,7 @@ fn main() -> io::Result<()>  {
                 let subset_valid_increases: usize = calculate_increases(&level_vector, &acceptable_increments);
                 if subset_valid_increases == level_vector.len() -1 {
                     total_safe_reports += 1;
+                    correct_lines.push(i);
                     flag = true;
                     break;
                 }
@@ -79,12 +82,14 @@ fn main() -> io::Result<()>  {
             println!("level_vector without first: {:?}", level_vector);
             let subset_valid_increases: usize = calculate_increases(&level_vector, &acceptable_increments);
             if subset_valid_increases == level_vector.len() -1 {
-                total_safe_reports += 1
+                total_safe_reports += 1;
+                correct_lines.push(i);
             }
         }
     }
 
     println!("report_vector: {:?}", report_vector);
-    println!("Total safe reports: {:?}", total_safe_reports); // 347 is too low
+    println!("Total safe reports: {:?}", total_safe_reports);
+    println!("correct_lines: {:?}", correct_lines);
     Ok(())
 }
