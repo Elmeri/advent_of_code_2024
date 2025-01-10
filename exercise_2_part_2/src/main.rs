@@ -20,7 +20,7 @@ fn calculate_increases(level_vector: &Vec<i32>, acceptable_increments: &Vec<i32>
 
 fn main() -> io::Result<()>  {
     // Open the file
-    let file= File::open("data/example_data_2.txt")?;
+    let file= File::open("data/real_data.txt")?;
 
     let reader = io::BufReader::new(file);
 
@@ -60,10 +60,10 @@ fn main() -> io::Result<()>  {
         if valid_increases == report_vector[i].len() -1 {
             total_safe_reports += 1
         } else {
-            println!("invalid_increase_index: {:?}", invalid_increase_index);
-            for k in 0..=invalid_increase_index.len() - 1 {
+            println!("report_vector[i]: {:?}", report_vector[i]);
+            for k in 0..=report_vector[i].len() - 1 {
                 let mut level_vector: Vec<i32> = report_vector[i].clone();
-                level_vector.remove(invalid_increase_index[k]);
+                level_vector.remove(k);
                 println!("level_vector: {:?}", level_vector);
                 let subset_valid_increases: usize = calculate_increases(&level_vector, &acceptable_increments);
                 if subset_valid_increases == level_vector.len() -1 {
