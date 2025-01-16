@@ -49,9 +49,6 @@ fn main() -> io::Result<()>  {
         mul_vector_2.push(mul(mat.as_str().replace("mul(", "").replace(")", "").split(",").map(|x|->i32{x.parse().unwrap()}).collect()));
     }
 
-
-    // calculate similarity score
-
     println!("mul_vector: {:?}", mul_vector);
     println!("mul_vector_2: {:?}", mul_vector_2);
     let sum: i32 = mul_vector.iter().sum();
